@@ -565,6 +565,16 @@
         text-align: center;
         line-height: 1.9;
       }
+
+      #mainIcon {
+        transition: all 0.5s ease;
+        filter: grayscale(1) opacity(0.5); /* Awalnya agak putih/abu-abu */
+      }
+
+      #mainIcon.celebrate {
+        filter: grayscale(0) opacity(1) drop-shadow(0 0 25px var(--gold));
+        transform: scale(1.2);
+      }
     </style>
   </head>
   <body>
@@ -666,20 +676,20 @@
       // ---- Slides ----
       const slides = [
         {
-          tag: "✦ level 19 unlocked",
-          text: "Selamat ulang tahun yang ke-19, Apilll. Nggak terasa waktu jalan secepat itu sampai sekarang kamu sudah resmi naik level ke usia baru. Semoga di 'map' yang baru ini, perjalananmu makin hebat dan penuh cerita seru.",
+          tag: "✦ chapter 19",
+          text: "Selamat ulang tahun yang ke-19, Apilll. Nggak terasa waktu jalan secepat itu sampai sekarang kamu sudah resmi menginjak usia baru. Semoga di tahun ini, banyak kejutan hebat dan momen seru yang nunggu buat ditemukan.",
         },
         {
-          tag: "✦ teammate terbaik",
-          text: "Meskipun kita kenalnya dari game dan lewat layar, aku benar-benar menghargai pertemanan kita selama ini. Makasih ya Pill, udah jadi teman mabar sekaligus teman diskusi yang asik. Kamu salah satu orang yang bikin sesi login terasa jauh lebih seru.",
+          tag: "✦ momen berkesan",
+          text: "Makasih ya Pill, sudah jadi teman yang selalu bikin suasana hidup tiap kali kita kumpul bareng. Semua canda tawa dan momen gila kita bareng anak-anak di grup No Cure itu beneran berkesan banget buat aku.",
         },
         {
-          tag: "✦ win streak untukmu",
-          text: "Di usia 19 ini, aku doakan kamu selalu dapat 'win streak' dalam segala urusan—entah itu kuliah, impian, atau hobi lainnya. Apa pun yang lagi kamu usahakan, semoga dimudahkan jalannya. Kamu hebat, percaya itu.",
+          tag: "✦ doa & harapan",
+          text: "Di usia 19 ini, aku doakan kamu selalu diberi kelancaran dalam segala hal—entah itu kuliah, impian, atau apa pun yang lagi kamu usahakan di dunia nyata. Kamu hebat dengan caramu sendiri, percaya itu.",
         },
         {
           tag: "✦ dari narayyan",
-          text: "Sekali lagi, Happy Birthday Avrilea Savanya Amaya. Nikmati hari spesialmu, istirahat dulu dari beban pikiran (dan push rank), dan tetaplah jadi Apilll yang aku kenal. Cheers untuk tahun yang luar biasa ke depannya! 🥂",
+          text: "Sekali lagi, Happy Birthday Avrilea Savanya Amaya. Nikmati hari spesialmu, jangan terlalu banyak beban pikiran, dan tetaplah jadi Apilll yang kita kenal. Cheers untuk lebih banyak cerita dan ketawa bareng No Cure ke depannya! 🥂",
         },
       ];
 
@@ -847,12 +857,12 @@
           "#f472b6",
           "#fbbf24",
           "#ffffff",
-          "#a78bfa",
-          "#4338ca",
         ];
         const rect = btn.getBoundingClientRect();
         const cx = rect.left + rect.width / 2,
           cy = rect.top + rect.height / 2;
+
+        // Efek Confetti
         for (let i = 0; i < 80; i++) {
           const el = document.createElement("div");
           el.className = "confetti-piece";
@@ -862,15 +872,20 @@
           el.style.top = cy + "px";
           el.style.background =
             colors[Math.floor(Math.random() * colors.length)];
-          el.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
           el.style.width = el.style.height = Math.random() * 9 + 4 + "px";
-          el.style.animationDelay = Math.random() * 0.3 + "s";
           document.body.appendChild(el);
           setTimeout(() => el.remove(), 3000);
         }
+
+        // EFEK KUE MENYALA & BERWARNA
         const icon = document.getElementById("mainIcon");
-        icon.textContent = "🎉";
-        setTimeout(() => (icon.textContent = "🎂"), 2500);
+        icon.classList.add("celebrate"); // Menyalakan lilin/warna
+        icon.textContent = "🎂"; // Memastikan tetap kue tapi sekarang berwarna
+
+        // Kembalikan ke normal setelah 5 detik (atau hapus timeout jika ingin menyala terus)
+        setTimeout(() => {
+          icon.classList.remove("celebrate");
+        }, 5000);
       }
     </script>
   </body>
